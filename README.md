@@ -7,36 +7,37 @@ Instagram Challenge
     - ```bundle install```
     - ```rails db:create```
     - ```rails db:migrate```
-3. To start the web server, run ```rails server```
+3. To start the web server, run ```rails server```. You may wish to look through the instructions below for further deployment information.
 4. By default, this will start the server at ```http://localhost:3000```
 5. To execute the test suite, run ```rspec```. The database migration will add test users and data.
 
-Devise gem info:
-
-Some setup you must do manually if you haven't yet:
+The **Devise** gem is used for user authentication, and has its own quirks.
+Some setup you must do manually for your specific installation:
 
   1. Ensure you have defined default url options in your environments files. Here
      is an example of default_url_options appropriate for a development environment
-     in config/environments/development.rb:
+     in ```config/environments/development.rb```:
 
        config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
      In production, :host should be set to the actual host of your application.
 
-  2. Ensure you have defined root_url to *something* in your config/routes.rb.
-     For example:
+  2. In ```config/initializers/devise.rb``` make sure you edit the line ```config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'```
 
-       root to: "home#index"
-
-  3. Ensure you have flash messages in app/views/layouts/application.html.erb.
-     For example:
-
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
-
-  4. You can copy Devise views (for customization) to your app by running:
-
-       rails g devise:views
+  3. If you want to use Amazon AWS for ActiveStorage in deployment, you would need to edit ```config/storage.yml``` with:
+  ```
+ amazon:
+ service: S3
+ access_key_id: your_access_key_id
+ secret_access_key: your_secret_access_key
+ region: us-east-1
+ bucket: your_own_bucket
+ ```
+ and consequently edit ```config/environments/production.rb``` to include your defined amazon info:
+ ```
+ # Store uploaded files on Amazon S3
+config.active_storage.service = :amazon
+```
 
 ## Approach
 Back-end: Ruby on Rails, Postgresql<br />
