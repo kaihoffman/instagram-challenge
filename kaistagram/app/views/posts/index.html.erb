@@ -1,1 +1,23 @@
-<h1>Hello</h1>
+<p><h1>Hello, <%=current_user.username %>! </h1></p>
+
+<div id="Create-post" class="text-center">
+    <p>
+        Add your post:
+    </p>
+    <p>    <%= form_for Post.new do |f| %>
+
+  <div class="form-group">
+    <%= f.file_field :images %>
+  </div>
+  <div class="form-group">
+    Caption: <%= f.text_field :caption %>
+  </div>
+  <div class="form-group">
+    <%= f.text_field :user_id, value: current_user.id, class:'d-none'%>
+  </div>
+  <br>
+  <div class="text-center">
+    <%= f.submit 'Create Post', class: 'btn btn-primary' %>
+</p>
+  </div>
+<% end %></div>

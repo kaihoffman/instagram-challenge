@@ -12,6 +12,16 @@
   </head>
 
   <body>
+      <% if user_signed_in? %>
+   <div id = "user-sign-out-control"><a href="<%= destroy_user_session_path%>" data-method="delete">
+     <i class="fa fa-user">Sign out</i>
+   </a>
+ <% else %>
+   <a href="<%= new_user_session_path%>">
+     <i class="fa fa-sign-in">Sign in</i>
+   </a></div>
+ <% end %>
+
     <%= yield %>
   </body>
 </html>
